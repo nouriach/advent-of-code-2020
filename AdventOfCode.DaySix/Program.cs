@@ -41,7 +41,7 @@ namespace AdventOfCode.DaySix
             _splitData = new List<string>(passes);
             int start = 0;
             int track = 0;
-            StringBuilder txt;
+            StringBuilder newCustomDeclarationForm;
 
             for(var value = 0; value < _splitData.Count; value++)
             {
@@ -49,28 +49,27 @@ namespace AdventOfCode.DaySix
                 if (_splitData[value] == string.Empty)
                 {
                     int peopleCount = GetPeopleCountForCurrentGroup(start, track);
-                    txt = new StringBuilder();
+                    newCustomDeclarationForm = new StringBuilder();
                     while (start != track)
                     {
-                        txt.Append(_splitData[start]);
+                        newCustomDeclarationForm.Append(_splitData[start]);
                         start++;
                     }
-                    _customDeclarationForms.Add(txt.ToString());
-                    CheckIfFormAnswerCountMatchesFormPeopleCount(txt, peopleCount);
+                    _customDeclarationForms.Add(newCustomDeclarationForm.ToString());
+                    CheckIfFormAnswerCountMatchesFormPeopleCount(newCustomDeclarationForm, peopleCount);
                 }
 
                 if (value == _splitData.LastIndexOf(string.Empty))
                 {
                     int peopleCount = GetTotalPeopleCountForLastGroup();
-
-                    txt = new StringBuilder();
+                    newCustomDeclarationForm = new StringBuilder();
                     while (track != _splitData.Count)
                     {
-                        txt.Append(_splitData[track]);
+                        newCustomDeclarationForm.Append(_splitData[track]);
                         track++;
                     }
-                    _customDeclarationForms.Add(txt.ToString()); ;
-                    CheckIfFormAnswerCountMatchesFormPeopleCount(txt, peopleCount);
+                    _customDeclarationForms.Add(newCustomDeclarationForm.ToString()); ;
+                    CheckIfFormAnswerCountMatchesFormPeopleCount(newCustomDeclarationForm, peopleCount);
                 }
             }
         }
@@ -85,10 +84,10 @@ namespace AdventOfCode.DaySix
             return _splitData.Count - (_splitData.LastIndexOf(string.Empty) + 1);
         }
 
-        private static void CheckIfFormAnswerCountMatchesFormPeopleCount(StringBuilder txt, int peopleCount)
+        private static void CheckIfFormAnswerCountMatchesFormPeopleCount(StringBuilder newCustomDeclarationForm, int peopleCount)
         {
             List<string> answeredQuestions = new List<string>();
-            var answers = txt.ToString().ToCharArray();
+            var answers = newCustomDeclarationForm.ToString().ToCharArray();
             foreach (var answer in answers)
             {
                 var answerCount = answers.Where(x => x == answer).ToList();
